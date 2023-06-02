@@ -12,6 +12,7 @@ from pansharpening.cli import parser
 def load_source_locations(
     sourcefile: Path = Path(__file__).parent / "data" / "imagery-sources.toml",
     source_type: str = "pansharpening",
+    input_arguments: list = [],
     stream: bool = False,
 ) -> ImageCollection:
     """Loads source locations from TOML file into an ImageCollection object for easier handling."""
@@ -23,9 +24,11 @@ def load_source_locations(
     return ImageCollection(
         images={
             ImageType[image_type]: Image(url=url, streamable=stream)
-            for image_type, url in tomllib.loads(sourcefile.read_text())[
-                source_type
-            ].items()
+            for image_type, url in (
+                tomllib.loads(sourcefile.read_text())[source_type].items()
+                if not input_arguments
+                else zip(["PANCHROMATIC", "RGB"], input_arguments)
+            )
         }
     )
 
@@ -62,13 +65,22 @@ def pansharpen(
     logging.info(f"> Pansharpened raster output available: {filename}")
 
 
-def main(sourcefile: Path, stream: bool, compression: str, out_dir: Path, ortho=False):
+def main(
+    sourcefile: Path,
+    stream: bool,
+    compression: str,
+    out_dir: Path,
+    input_arguments: list,
+    ortho=False,
+):
     set_gdal_config()
 
     sources = (
         ortho_correct(sourcefile, stream=stream)
         if ortho
-        else load_source_locations(sourcefile, stream=stream)
+        else load_source_locations(
+            sourcefile, stream=stream, input_arguments=input_arguments
+        )
     )
 
     pansharpen(
@@ -94,4 +106,5 @@ if __name__ == "__main__":
         compression=args.compression,
         out_dir=args.out,
         ortho=args.raw,
+        input_arguments=[args.panchromatic, args.rgb],
     )

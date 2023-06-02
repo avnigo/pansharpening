@@ -45,6 +45,9 @@ options:
   --raw, -r             derive from raw Pleiades Neo imagery (default: `False`)
   --out OUT, -o OUT     change the output destination directory (default: `./output`)
   --file FILE, -f FILE  TOML file input of source imagery (default: `./data/imagery-sources.toml`)
+  --panchromatic PANCHROMATIC, -p PANCHROMATIC
+                        Panchromatic image URL
+  --rgb RGB, -g RGB     RGB image URL
 ```
 
 - By default, the raster inputs are cached to disk after the first download, but the `--stream` option changes the processing on-the-fly and discards inputs after finished:
@@ -55,6 +58,7 @@ $ python -m pansharpening -s
 
 - The pansharpened raster is available in the `output` directory.
 - Change sources file in `data/imagery-sources.toml`, or provide another sources file using the `--file` option.
+  - Pass in URLs to panchromatic and RGB TIFFs as commandline arguments using the `--panchromatic` and `--rgb` options.
 - Change the output directory of the pansharpened raster using the `--out` option.
 - Alternative compression options are configurable through the `--compression` flag:
 

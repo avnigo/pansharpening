@@ -45,4 +45,16 @@ def parser():
         default=Path(__file__).parent / "data/imagery-sources.toml",
         type=Path,
     )
+    parser.add_argument(
+        "--panchromatic",
+        "-p",
+        help="Panchromatic image URL",
+        type=str,
+    )
+    parser.add_argument(
+        "--rgb",
+        "-g",
+        help="RGB image URL",
+        type=str,
+    )
     return parser.parse_args()
