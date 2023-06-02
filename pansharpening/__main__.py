@@ -83,8 +83,6 @@ def main(
         )
     )
 
-    print(sources)
-    quit()
     pansharpen(
         panchromatic=sources.images[ImageType.PANCHROMATIC].path,
         rgb=sources.images[ImageType.RGB].path,
