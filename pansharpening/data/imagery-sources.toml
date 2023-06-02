@@ -1,0 +1,8 @@
+# URLs to TIFF images
+[pansharpening]
+PANCHROMATIC = ""
+RGB = ""
+
+[orthorectification]
+NED = ""
+PNEO = ""

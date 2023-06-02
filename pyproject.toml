@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pansharpening"
+version = "0.1.0"
+authors = [
+    {name = "avnigo", email = "43263288+avnigo@users.noreply.github.com"},
+]
+description = "Simple pansharpening commandline tool."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "gdal",
+    "gdal_utils",
+    "requests",
+]
+
+[project.optional-dependencies]
+dev = [
+    "debugpy",
+    "pyright",
+    "flake8",
+    "black",
+    "ipython",
+    "ipdb",
+]
